@@ -1,6 +1,7 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xff62FCD7);
+//Color(0xff62FCD7)
+const kPrimaryColor = Colors.green;
 const kNotesBox = 'notes_box';
 List<Color> kColors = const [
   Color(0xff606c38),

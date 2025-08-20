@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/views/widgets/custom_app_bar.dart';
 
+import '../../constants.dart';
 import '../../models/note_model.dart';
 import 'custom_text_field.dart';
 import 'edit_note_colors_list_view.dart';
@@ -34,6 +35,20 @@ class _EditNotesViewBodyState extends State<EditNotesViewBody> {
               widget.noteModel.save();
               BlocProvider.of<NotesCubit>(context).fetchAllNotes();
               Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: kPrimaryColor,
+                  content: Text(
+                    'Note edited successfully.',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  duration: Duration(seconds: 2),
+                ),
+              );
             },
           ),
           CustomTextFormField(
