@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_notes_view.dart';
+
+import '../../cubits/notes_cubit/notes_cubit.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.noteModel});
@@ -48,9 +50,37 @@ class NoteItem extends StatelessWidget {
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {
-                  noteModel.delete();
-                  BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                onPressed: () async {
+                  final bool? confirm = await showDialog<bool>(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'Are you sure you want to delete this note?',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text(
+                              'Cancel',
+                              style: TextStyle(color: kPrimaryColor),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text(
+                              'Delete',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  if (confirm == true) {
+                    await noteModel.delete();
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                  }
                 },
                 icon: Icon(
                   FontAwesomeIcons.trash,
