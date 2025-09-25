@@ -23,10 +23,14 @@ class _NotesViewBodyState extends State<NotesViewBody> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: const Column(
+      child: Column(
         children: [
-          CustomAppBar(title: 'Notes', icon: Icons.search),
-          Expanded(child: NotesListView()),
+          CustomAppBar(
+            title: 'Notes',
+            icon: Icons.search,
+            color: Color(0xFF424242),
+          ),
+          const Expanded(child: NotesListView()),
         ],
       ),
     );

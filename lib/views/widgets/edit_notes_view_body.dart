@@ -29,6 +29,7 @@ class _EditNotesViewBodyState extends State<EditNotesViewBody> {
           CustomAppBar(
             title: 'Edit Note',
             icon: Icons.check,
+            color: kPrimaryColor,
             onPressed: () {
               widget.noteModel.title = title ?? widget.noteModel.title;
               widget.noteModel.content = content ?? widget.noteModel.content;
